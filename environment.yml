@@ -1,0 +1,11 @@
+name: imgqfinder_env
+dependencies:
+  - python=3.7
+  - pip
+  - pip:
+    - numpy
+    - pandas
+    - argparse
+    - numpy
+    - biopython
+    - tqdm
