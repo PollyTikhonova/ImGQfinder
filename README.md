@@ -1,8 +1,6 @@
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 # ImGQfinder
 ## The official python version of ImGQfinder: http://imgqfinder.niifhm.ru/
-
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg
-
 
 ## Installation
 1. Clone the repository. 
