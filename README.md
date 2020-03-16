@@ -1,6 +1,8 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 # ImGQfinder v2.0.0
-## The official python version of ImGQfinder: http://imgqfinder.niifhm.ru/
+A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
+
+##### The official python version of ImGQfinder: http://imgqfinder.niifhm.ru/
 
 ## Installation
 1. Clone the repository. 
