@@ -2,8 +2,6 @@
 # ImGQfinder v2.0.0
 A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
 
-##### The official python version of ImGQfinder: http://imgqfinder.niifhm.ru/
-
 ## Installation
 1. Clone the repository. 
 2. Install the requirements. We recommend to create a new conda environment.
