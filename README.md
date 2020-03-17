@@ -61,3 +61,5 @@ optional arguments:
                         stages info
 ```
  
+### Quadruplex Description
+![Quadruplex Description](https://github.com/PollyTikhonova/ImGQfinder/raw/master/ImGQfinder_scheme.png)
