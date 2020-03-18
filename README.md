@@ -1,6 +1,9 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-# ImGQfinder v2.0.0
+# ImGQfinder v2.1.0
 A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
+
+#### Updates tracker
+You can find the information about what's new in updates and releases via [link.](https://github.com/PollyTikhonova/ImGQfinder/blob/master/version_tracker.md)
 
 ## Installation
 1. Clone the repository. 
@@ -21,8 +24,27 @@ pip install -r requirements.txt
 ## Usage
 ```python imgqfinder.py -i data.fasta -o test,```\
 where ```data.fasta``` is a fasta file, which can contain several sequences [REQUIRED],\
-    ```-o test``` is a fold, where the output files will be stored [NOT REQUIRED].
+```   -o test``` is a fold, where the output files will be stored [NOT REQUIRED].
     
+At the output folder you will get the following files:
+ - `%fasta_id%_quadruplets.csv`: the full list of quadrupletes;
+ - `%fasta_id%_quadruplexes.csv`: the full list of quadruplexes;
+ - `%fasta_id%_groups.csv`: the non-redundant list of quadruplexes: without any intersections;
+ - `%fasta_id%_ranges.csv`: only start&end coordinates of the grouped quadruplexes;
+ - `description.txt`: the columns description file.
+ 
+ ##### ! Important !
+While grouping, quadruplexes are not merging with the nearest, but the best possible quadruplex is chosen according to the next considerations. \
+If two quadruplexes intersect we prefer the one that: *(the conditions are listed in their priority order)*
+ - has less missmatches and buldges (by default, but you can abort this behavior);
+ - has less total length (this means the the space between quadruplets is less);
+ - meets first.
+    
+    
+### Quadruplex Description
+![Quadruplex Description](https://github.com/PollyTikhonova/ImGQfinder/raw/master/ImGQfinder_scheme.png)
+ 
+
 #### Full list of the options:
 ```
 python imgqfinder.py --help                     
@@ -42,7 +64,7 @@ optional arguments:
                         current folder if not provided.
   -GC GC                Quad type, G- or C-. By default, G.
   -L L                  Maximum loop length. By default, 7.
-  -q Q                  Amount of tetrads.
+  -q Q                  The length of a quadruplet.
   -mdef MDEF            Allowed number of defective tetrads. By default, 1.
   -bulgelen BULGELEN    Total length of bulges in one quadruplet. By default,
                         1.
@@ -60,6 +82,3 @@ optional arguments:
   -v, --verbose         Show the status of procesing or not. By default print
                         stages info
 ```
- 
-### Quadruplex Description
-![Quadruplex Description](https://github.com/PollyTikhonova/ImGQfinder/raw/master/ImGQfinder_scheme.png)
