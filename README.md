@@ -33,6 +33,8 @@ At the output folder you will get the following files:
  - `%fasta_id%_ranges.csv`: only start&end coordinates of the grouped quadruplexes;
  - `description.txt`: the columns description file.
  
+ At this repository, you can find the test folder with the input and output example.
+ 
  ##### ! Important !
 While grouping, quadruplexes are not merging with the nearest, but the best possible quadruplex is chosen according to the next considerations. \
 If two quadruplexes intersect we prefer the one that: *(the conditions are listed in their priority order)*
