@@ -7,16 +7,16 @@ Python release of ImGQfinder. The initial program that works at our [server](htt
 
 
 ### Versions of Libraries 
-The last versions of libraries, the tool was tested. These lists were got by `pip freeze` command.
+The last versions of libraries the tool was tested at. These lists were got by `pip freeze` command.
 
 #### V2.1.0
-python==3.7
-biopython==1.76
-numpy==1.18.2
-pandas==1.0.2
-tqdm==4.43.0
-python-dateutil==2.8.1
-certifi==2019.11.28
-pytz==2019.3
-six==1.14.0
+python==3.7\
+biopython==1.76\
+numpy==1.18.2\
+pandas==1.0.2\
+tqdm==4.43.0\
+python-dateutil==2.8.1\
+certifi==2019.11.28\
+pytz==2019.3\
+six==1.14.0\
 wincertstore==0.2
