@@ -3,7 +3,7 @@
 A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
 
 #### Updates tracker
-You can find the information about what's new in updates and releases via [link.](https://github.com/PollyTikhonova/ImGQfinder/blob/master/version_tracker.md)
+You can find the information about what's new in updates and versions of libraries via [link.](https://github.com/PollyTikhonova/ImGQfinder/blob/master/version_tracker.md)
 
 ## Installation
 1. Clone the repository. 
