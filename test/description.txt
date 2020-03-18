@@ -1,0 +1,29 @@
+Parametres
+	fasta_file = ../../chr1_chunk1_1.fasta
+	output_path = test
+	GC = G
+	L = 7
+	q = 4
+	mdef = 1
+	tetdef = 1
+	repeats = False
+	verbose = False
+	len_bulge = 1
+	max_bulge = 1
+	bulge_priority = False
+
+Columns Description
+
+	Qudruplets File:
+		Start: an index of a quadruplet begining
+		Number of Defects: a total number of the mismatches or a number of bulges
+		Length: a length of a quadruplet
+		Sequence: quadruplet sequences if not suppressed
+
+	Quadruplex & Group Files:
+		Qi-Start: an index of a quadruplet begining
+		Qi-Defects: a total number of the mismatches or a number of bulges
+		Qi-Length: a length of a quadruplet
+		Defective: a number of quadruplets with defects (mismatches or bulges)
+		Sequence: a sequence of a quadruplex with loops if not suppressed, quadruplets are uppercase
+		

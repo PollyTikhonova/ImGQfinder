@@ -133,6 +133,9 @@ class QuadruplexFinder(object):
 
 
 	def find_quadruplexes(self, quadruplets):
+		'''
+			quadruplex: [[Q1-Start,	Q1-Defects,	Q1-Length]]*self.nquadruplets
+		'''
 		total_wrongs = 0  #number of the quadruplet with defect
 		wrongNum = 0
 
@@ -203,29 +206,45 @@ class QuadruplexFinder(object):
 			pbar.update(len(quadruplets) - pbar.n)
 		return quadruplexes
 
-	def qroup_quadruplexes(self, quadruplexes):
-		groups = []
-		q1 = 0
-		q2 = 1
-		with tqdm(desc='Grouping', 	total=len(quadruplexes)-1, disable = self.verbose) as pbar:
-			while q1 < len(quadruplexes)-1:
-				while q2 < len(quadruplexes):
-					pbar.update(1)
-					tetrads_lehgth_q1 = sum([quadruplexes[q1][i][2] for i in range(self.q)])
-					tetrads_lehgth_q2 = sum([quadruplexes[q2][i][2] for i in range(self.q)])
-					if (quadruplexes[q2][0][0] > quadruplexes[q1][self.q - 1][0] + self.q - 1):
-						groups.append(quadruplexes[q1])
-						q1 = q2
-					elif (quadruplexes[q2][self.q] < quadruplexes[q1][self.q]) or ((tetrads_lehgth_q2 < tetrads_lehgth_q1) & (not self.bulge_priority)):
-							q1 = q2
-					elif (q2 == len(quadruplexes)-1):
-						if (quadruplexes[q2][0][0] > quadruplexes[q1][self.q - 1][0] + self.q - 1):
-							groups.append(quadruplexes[q2])
-						else:
-							groups.append(quadruplexes[q1])
-						q1 = len(quadruplexes)
-					q2 += 1
-		return groups
+	def group_quadruplexes(self, quadruplexes):
+	    groups = []
+	    q1 = 0
+	    q2 = 1
+	    with tqdm(desc='Grouping', 	total=len(quadruplexes)-1, disable = self.verbose) as pbar:
+	        while q1 < len(quadruplexes)-1:
+	            while q2 < len(quadruplexes):
+	                pbar.update(1)
+	                tetrads_lehgth_q1 = sum([quadruplexes[q1][i][2]+quadruplexes[q1][i][1] for i in range(self.nquadruplets)])
+	                tetrads_lehgth_q2 = sum([quadruplexes[q2][i][2]+quadruplexes[q2][i][1] for i in range(self.nquadruplets)])
+	                general_length_q1 = quadruplexes[q1][self.nquadruplets - 1][0] + quadruplexes[q1][self.nquadruplets - 1][2] - 1 - quadruplexes[q1][0][0]
+	                general_length_q2 = quadruplexes[q2][self.nquadruplets - 1][0] + quadruplexes[q2][self.nquadruplets - 1][2] - 1 - quadruplexes[q2][0][0]
+	                if (quadruplexes[q2][0][0] > quadruplexes[q1][self.nquadruplets - 1][0] + quadruplexes[q1][self.nquadruplets - 1][2] - 1):
+	                    groups.append(quadruplexes[q1])
+	                    q1 = q2
+	                    if (q2 == len(quadruplexes)-1):
+	                        groups.append(quadruplexes[q2])
+	                        q1 = len(quadruplexes)
+	                elif ((tetrads_lehgth_q2 < tetrads_lehgth_q1) & (not self.bulge_priority) or
+	                      (tetrads_lehgth_q2 >= tetrads_lehgth_q1) & (self.bulge_priority) or
+	                      (general_length_q2 < general_length_q1) & (not self.bulge_priority) or
+	                      (general_length_q2 < general_length_q1) & (self.bulge_priority)):
+	                        q1 = q2
+	                        if (q2 == len(quadruplexes)-1):
+	                            groups.append(quadruplexes[q2])
+	                            q1 = len(quadruplexes)
+	                elif (q2 == len(quadruplexes)-1):
+	                            groups.append(quadruplexes[q1])
+	                            q1 = len(quadruplexes)
+	                q2 += 1
+	    return groups
+
+	def group_to_ranges(self, groups):
+		ranges = []
+		for group in groups:
+			start = group[0][0]
+			end = group[self.nquadruplets-1][0]+group[self.nquadruplets-1][2]-1
+			ranges.append((start, end))
+			return ranges
 
 	def description_file(self):
 		all_members = self.__dict__.keys()
@@ -248,6 +267,7 @@ class QuadruplexFinder(object):
 		with open('%s/description.txt'%(self.output_path), 'w') as f:
 			f.write(description_file)
 
+
 	def run(self, print_sequences=True):
 		print('Loading %s'%self.fasta_file)
 		sequences = self.load_fasta()
@@ -256,7 +276,8 @@ class QuadruplexFinder(object):
 			print('Processing %s:'%fasta_id)
 			quadruplets = self.find_quadruplets(fasta) if ((self.len_bulge > 0) or (self.max_bulge == 0)) else self.find_quadruplets_without_bulges(fasta)
 			quadruplexes = self.find_quadruplexes(quadruplets)
-			groups = self.qroup_quadruplexes(quadruplexes)
+			groups = self.group_quadruplexes(quadruplexes)
+			ranges = self.group_to_ranges(groups)
 
 			columns_set1 = ['Start', 'Number of Defects', 'Length']
 			columns_set2 = []
@@ -320,6 +341,7 @@ class QuadruplexFinder(object):
 			pd.DataFrame(quadruplets_toprint, columns=columns_set1).to_csv('%s/%s_quadruplets.csv'%(self.output_path, fasta_id), index=False, sep='\t')
 			pd.DataFrame(quadruplexes_toprint, columns=columns_set2).to_csv('%s/%s_quadruplexes.csv'%(self.output_path, fasta_id), index=False, sep='\t')
 			pd.DataFrame(groups_toprint, columns=columns_set2).to_csv('%s/%s_groups.csv'%(self.output_path, fasta_id), index=False, sep='\t')
+			pd.DataFrame(ranges, columns=['start', 'end']).to_csv('%s/%s_ranges.csv'%(self.output_path, fasta_id), index=False, sep='\t')
 
 		self.description_file()
 		print('Finished')
@@ -334,7 +356,7 @@ def main():
     parser.add_argument('-o', '--output', default='', help='Name/path of a folder for output files. Saves to the current folder if not provided.')
     parser.add_argument('-GC', default='G', help='Quad type, G- or C-. By default, G.')
     parser.add_argument('-L', default=7, help='Maximum loop length. By default, 7.')
-    parser.add_argument('-q', default=4, help="Amount of tetrads.") # the length of a tetrad
+    parser.add_argument('-q', default=4, help="The length of a quadruplet.") # the length of a tetrad
     parser.add_argument('-nq', '--nquadruplets', default=4, help=argparse.SUPPRESS) # 'Number of quadruplets. By default, 4.'
     parser.add_argument('-mdef', default=1, help='Allowed number of defective tetrads. By default, 1.')
     parser.add_argument('-bulgelen', default=1, help='Total length of bulges in one quadruplet. By default, 1.')

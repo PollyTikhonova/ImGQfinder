@@ -1,0 +1,4 @@
+Q1-Start	Q1-Defects	Q1-Length	Q2-Start	Q2-Defects	Q2-Length	Q3-Start	Q3-Defects	Q3-Length	Q4-Start	Q4-Defects	Q4-Length	Defective	Sequence
+16905	1	4	16912	0	4	16921	0	4	16932	0	4	1	GGTGccaGGGGcagagGGGGcaatgccGGGG
+36259	1	4	36269	0	4	36280	0	4	36285	0	4	1	GTGGctctgaGGGGgctctcaGGGGtGGGG
+133448	0	4	133454	0	4	133465	1	4	133475	0	4	1	GGGGcaGGGGcagcagtGGTGccagttGGGG
