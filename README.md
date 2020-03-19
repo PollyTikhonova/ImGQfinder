@@ -1,5 +1,5 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-# ImGQfinder v2.1.0
+# ImGQfinder v2.1.1
 A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
 
 #### Updates tracker

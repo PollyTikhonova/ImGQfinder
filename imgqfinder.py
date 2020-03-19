@@ -281,7 +281,7 @@ class QuadruplexFinder(object):
 
 			columns_set1 = ['Start', 'Number of Defects', 'Length']
 			columns_set2 = []
-			[columns_set2.extend(['Q%d-Start'%i, 'Q%d-Defects'%i, 'Q%d-Length'%i]) for i in range(1, self.q+1)]
+			[columns_set2.extend(['Q%d-Start'%i, 'Q%d-Defects'%i, 'Q%d-Length'%i]) for i in range(1, self.nquadruplets+1)]
 			# [columns_set2.extend(['Q%d Start'%i]) for i in range(1, self.q+1)]
 			columns_set2.extend(['Defective'])
 
