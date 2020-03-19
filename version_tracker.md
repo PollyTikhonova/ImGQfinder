@@ -1,5 +1,5 @@
 ## V2.1.1
-Corrected mistakes of saving files.
+Corrected mistakes of saving files (the number of columns).
 
 ## V2.1.0
 Now, the ranges file (starts&ends of the quadruplexes) is available at the output! \
