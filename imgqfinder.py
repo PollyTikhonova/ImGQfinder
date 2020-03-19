@@ -240,11 +240,11 @@ class QuadruplexFinder(object):
 
 	def group_to_ranges(self, groups):
 		ranges = []
-		for group in groups:
+		for group in tqdm(groups, desc='Converting to ranges', disable = self.verbose):
 			start = group[0][0]
 			end = group[self.nquadruplets-1][0]+group[self.nquadruplets-1][2]-1
 			ranges.append((start, end))
-			return ranges
+		return ranges
 
 	def description_file(self):
 		all_members = self.__dict__.keys()
