@@ -1,5 +1,5 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-# ImGQfinder v2.1.1
+# ImGQfinder v2.2.0
 A tool that searches G-quadruplexes and i-Motifs with buldges and mismatches.
 
 #### Updates tracker
@@ -26,11 +26,11 @@ pip install -r requirements.txt
 where ```data.fasta``` is a fasta file, which can contain several sequences [REQUIRED],\
 ```   -o test``` is a fold, where the output files will be stored [NOT REQUIRED].
     
-At the output folder you will get the following files:
+At the output folder, by default, you will get the following files:
  - `%fasta_id%_quadruplets.csv`: the full list of quadrupletes;
  - `%fasta_id%_quadruplexes.csv`: the full list of quadruplexes;
  - `%fasta_id%_groups.csv`: the non-redundant list of quadruplexes: without any intersections;
- - `%fasta_id%_ranges.csv`: only start&end coordinates of the grouped quadruplexes;
+ - `%fasta_id%_ranges.bed`: only start&end coordinates of the grouped quadruplexes in a BED-FORMAT;
  - `description.txt`: the columns description file.
  
  At this repository, you can find the test folder with the input and output example.
@@ -41,7 +41,13 @@ If two quadruplexes intersect we prefer the one that: *(the conditions are liste
  - has less missmatches and buldges (by default, but you can abort this behavior);
  - has less total length (this means the the space between quadruplets is less);
  - meets first.
-    
+ 
+#### Big Files & Multiprocessing
+By default, the output will contain the quadruplex sequences. In case of big fasta sequences, you will need significantly more **time** and **space on the disk**. To avoid overconsuming of the resources you can do the following:\
+- If you do not need sequences you can turn off this behaviour with the tag `--no-sequences`. 
+- Also, you can reduce the time of computations by multiprocessing option. Just type the number of kernels the program may use, like `--nthreads 4`. *Warning: there could be some issues with multiprocessing in Windows systems.*
+- By default, the program will generate 4 files, containing information about: quadruplets, quadruplexes, groups and ranges. You may request not all the files as output. Just type one or several names with the tag: 
+
     
 ### Quadruplex Description
 ![Quadruplex Description](https://github.com/PollyTikhonova/ImGQfinder/raw/master/ImGQfinder_scheme.png)
@@ -78,9 +84,10 @@ optional arguments:
                         behaviour can be changed with this parameter.
   -tetdef TETDEF        Allowed number of defective nucleotides in tetrads. By
                         default, 1.
-  -ns, --no-sequences   Not to include sequences to the output
+  -ns, --no-sequences   Not to include sequences to the output.
   -r, --repeats         To include soft-masked genome areas. By default, not
                         included.
   -v, --verbose         Show the status of procesing or not. By default print
                         stages info
+  --nthreads NTHREADS   Number of kernels to use.
 ```
