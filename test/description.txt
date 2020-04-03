@@ -1,6 +1,6 @@
 Parametres
-	fasta_file = ../../chr1_chunk1_1.fasta
-	output_path = test
+	fasta_file = test/chr1_chunk1.fasta
+	output_path = test2
 	GC = G
 	L = 7
 	q = 4
@@ -11,6 +11,7 @@ Parametres
 	len_bulge = 1
 	max_bulge = 1
 	bulge_priority = False
+	nthreads = 1
 
 Columns Description
 
@@ -26,4 +27,9 @@ Columns Description
 		Qi-Length: a length of a quadruplet
 		Defective: a number of quadruplets with defects (mismatches or bulges)
 		Sequence: a sequence of a quadruplex with loops if not suppressed, quadruplets are uppercase
+		
+	Ranges File: bed-format
+		Fasta ID: fasta id
+		Start: an index of a quadruplex begining
+		End: an index of the end of the quadruplex
 		
