@@ -46,7 +46,7 @@ If two quadruplexes intersect we prefer the one that: *(the conditions are liste
 By default, the output will contain the quadruplex sequences. In case of big fasta sequences, you will need significantly more **time** and **space on the disk**. To avoid overconsuming of the resources you can do the following:\
 - If you do not need sequences you can turn off this behaviour with the tag `--no-sequences`. 
 - Also, you can reduce the time of computations by multiprocessing option. Just type the number of kernels the program may use, like `--nthreads 4`. *Warning: there could be some issues with multiprocessing in Windows systems.*
-- By default, the program will generate 4 files, containing information about: quadruplets, quadruplexes, groups and ranges. You may request not all the files as output. Just type one or several names with the tag: 
+- By default, the program will generate 4 files, containing information about: quadruplets, quadruplexes, groups and ranges. You may request not all the files as output. Just type one or several names with the tag: `--output_type 0 3`, where `0 - quadruplets, 1 - quadruplexes, 2 - groups, 3 - ranges, 4 or all - all files`.
 
     
 ### Quadruplex Description
@@ -90,4 +90,10 @@ optional arguments:
   -v, --verbose         Show the status of procesing or not. By default print
                         stages info
   --nthreads NTHREADS   Number of kernels to use.
+  --output_type OUTPUT_TYPE [OUTPUT_TYPE ...]
+                        List the numbers of file types you need the tool to
+                        generate or write all if you want all files. All - is
+                        the default. 0 - quadruplets, 1 - quadruplexes, 2 -
+                        groups, 3 - ranges. For example, --output_type 1 2
+                        will generate only 2 files: quadruplexes and groups.
 ```
