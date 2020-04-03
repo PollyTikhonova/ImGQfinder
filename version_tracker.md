@@ -1,3 +1,6 @@
+## V2.2.0
+Multiprocessing is now available! Also, a user can choose to generate not all files but only those he/she needs. Ranges file is now in a bed format. Corrected mistakes.
+
 ## V2.1.1
 Corrected mistakes of saving files (the number of columns) and ranges function output.
 
