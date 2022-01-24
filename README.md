@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 
 ## Usage
-```python imgqfinder.py -i data.fasta -o test,```\
+```python imgqfinder.py -i data.fasta -o test/,```\
 where ```data.fasta``` is a fasta file, which can contain several sequences [REQUIRED],\
 ```   -o test``` is a fold, where the output files will be stored [NOT REQUIRED].
     
